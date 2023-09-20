@@ -1,5 +1,7 @@
 package com.josealmeida.testeJpa2;
 
+import com.josealmeida.testeJpa2.repository.TaskRepository;
+import com.josealmeida.testeJpa2.service.TaskService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

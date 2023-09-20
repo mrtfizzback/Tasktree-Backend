@@ -28,11 +28,13 @@ public class DataInitializer implements CommandLineRunner {
         // Create Tasks
         Task task1 = new Task();
         task1.setTitle("Task 1");
+        task1.setTaskDescription("Task 1 Desccription");
         // Set other task properties...
         taskRepository.save(task1);
 
         Task task2 = new Task();
         task2.setTitle("Task 2");
+        task2.setTaskDescription("Task 2 Desccription");
         // Set other task properties...
         taskRepository.save(task2);
 
@@ -50,7 +52,7 @@ public class DataInitializer implements CommandLineRunner {
         managingTasks1.add(task2);
         user1.setManagingTasks(managingTasks1);
 
-        user1.setParticipatingTasks(new HashSet<>()); // Add participating tasks if needed
+        user1.setPartOfTeamTasks(new HashSet<>()); // Add participating tasks if needed
         userRepository.save(user1);
     }
 }
