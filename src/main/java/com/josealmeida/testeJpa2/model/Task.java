@@ -36,7 +36,7 @@ public class Task {
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "Manager_id", referencedColumnName = "id")
     private User taskManager;
     private LocalDateTime creationDate;
     private LocalDateTime lastEditedDate;

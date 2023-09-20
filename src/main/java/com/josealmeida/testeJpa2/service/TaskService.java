@@ -26,15 +26,14 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public TaskDTO getTaskById(Long id){
+    public Task getTaskById(Long id) {
         Optional<Task> taskOptional = taskRepository.findById(id);
 
+        Task task = null;
         if (taskOptional.isPresent()) {
-            Task task = taskOptional.get();
-            return TaskDTO.taskToDTO(task);
+            task = taskOptional.get();
         }
-
-        return null;
+        return task;
     }
 
     public Task saveTask(Task newTask){

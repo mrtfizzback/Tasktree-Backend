@@ -3,8 +3,7 @@ package com.josealmeida.testeJpa2.controller;
 import com.josealmeida.testeJpa2.DTO.TaskDTO;
 import com.josealmeida.testeJpa2.model.Task;
 import com.josealmeida.testeJpa2.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import com.josealmeida.testeJpa2.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +13,12 @@ import java.util.List;
 public class TaskController {
 
 
+    private final UserService userService;
+
     private final TaskService taskService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(UserService userService, TaskService taskService) {
+        this.userService = userService;
         this.taskService = taskService;
     }
 
@@ -26,7 +28,7 @@ public class TaskController {
     }
 
     @GetMapping("/task/{id}")
-    public TaskDTO getTaskById(@PathVariable Long id){
+    public Task getTaskById(@PathVariable Long id){
         return taskService.getTaskById(id);
     }
 

@@ -4,7 +4,6 @@ import com.josealmeida.testeJpa2.DTO.TaskDTO;
 import com.josealmeida.testeJpa2.DTO.UserDTO;
 import com.josealmeida.testeJpa2.model.Task;
 import com.josealmeida.testeJpa2.model.User;
-import com.josealmeida.testeJpa2.model.User;
 import com.josealmeida.testeJpa2.repository.TaskRepository;
 import com.josealmeida.testeJpa2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final TaskRepository taskRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
     }
 
     public List<User> getAllUsers(){
@@ -90,4 +91,13 @@ public class UserService {
 
         userRepository.deleteById(id);
     }
+
+    public TaskDTO assignNewManager(Long taskId, Long userId){
+        Task task = taskRepository.findById(taskId).get();
+        User user = userRepository.findById(userId).get();
+
+        task.setTaskManager(user);
+        return TaskDTO.taskToDTO(task);
+    }
+
 }
