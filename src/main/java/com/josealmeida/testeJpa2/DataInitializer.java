@@ -29,14 +29,29 @@ public class DataInitializer implements CommandLineRunner {
         Task task1 = new Task();
         task1.setTitle("Task 1");
         task1.setTaskDescription("Task 1 Desccription");
+
         // Set other task properties...
         taskRepository.save(task1);
 
         Task task2 = new Task();
         task2.setTitle("Task 2");
         task2.setTaskDescription("Task 2 Desccription");
+        task2.setParentTask(task1);
         // Set other task properties...
         taskRepository.save(task2);
+
+        Task task3 = new Task();
+        task3.setTitle("Task 3");
+        task3.setTaskDescription("Task 3 Desccription");
+        task3.setParentTask(task2);
+        // Set other task properties...
+        taskRepository.save(task3);
+
+        Task task4 = new Task();
+        task4.setTitle("Task 4");
+        task4.setTaskDescription("Task 4 Desccription");
+        // Set other task properties...
+        taskRepository.save(task4);
 
         // Create Users
         User user1 = new User();

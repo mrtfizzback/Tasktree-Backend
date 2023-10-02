@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,6 +79,33 @@ public class TaskService {
         }
 
         taskRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void assignParentTask(Long taskId, Long parentTaskId) {
+        Task selectedTask = taskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Task not found with ID: " + taskId));
+
+        if (parentTaskId != 0) {
+            Task parentTask = taskRepository.findById(parentTaskId)
+                    .orElseThrow(() -> new RuntimeException("Parent task not found with ID: " + parentTaskId));
+
+            if (selectedTask.getParentTask() != null && !selectedTask.getParentTask().getId().equals(parentTask.getId())) {
+                selectedTask.getParentTask().getChildTasks().remove(selectedTask);
+            }
+
+            selectedTask.setParentTask(parentTask);
+/*            if (parentTask.getChildTasks() == null) {
+                parentTask.setChildTasks(new Set<TasK>());
+            }*/
+            parentTask.getChildTasks().add(selectedTask);
+        } else {
+            if (selectedTask.getParentTask() != null) {
+                selectedTask.getParentTask().getChildTasks().remove(selectedTask);
+            }
+            selectedTask.setParentTask(null);
+        }
+        taskRepository.save(selectedTask);
     }
 
 

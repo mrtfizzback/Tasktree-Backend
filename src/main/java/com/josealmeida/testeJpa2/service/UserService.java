@@ -95,9 +95,16 @@ public class UserService {
     public TaskDTO assignNewManager(Long taskId, Long userId){
         Task task = taskRepository.findById(taskId).get();
         User user = userRepository.findById(userId).get();
-
+        user.getManagingTasks().add(task);
         task.setTaskManager(user);
         return TaskDTO.taskToDTO(task);
     }
 
+    public TaskDTO addUsertoTeam(Long taskId, Long userId){
+        Task task = taskRepository.findById(taskId).get();
+        User user = userRepository.findById(userId).get();
+        user.getPartOfTeamTasks().add(task);
+        task.getTaskTeam().add(user);
+        return TaskDTO.taskToDTO(task);
+    }
 }

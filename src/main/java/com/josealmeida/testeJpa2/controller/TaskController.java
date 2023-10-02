@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:5173")
 @RestController
-@RequestMapping("/")
+@RequestMapping("/task")
 public class TaskController {
 
 
@@ -23,28 +24,37 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
+//    public String teste(){
+//        return "testeee";
+//    }
     public List<Task> getAllTasks(){
         return taskService.getAllTasks();
     }
 
-    @GetMapping("/task/{id}")
+    @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id){
         return taskService.getTaskById(id);
     }
 
-    @PostMapping("/task")
+    @PostMapping("/newtask")
     public Task newTask(@RequestBody Task newTask){
         return taskService.saveTask(newTask);
     }
 
-    @PutMapping("/task/{id}")
+    @PutMapping("/{id}")
     public Task updateTask(@RequestBody Task updatedTask, @PathVariable Long id){
         return taskService.updateTask(updatedTask, id);
     }
-    @DeleteMapping("/task/{id}")
+    @DeleteMapping("/{id}")
     public String deleteTask(@PathVariable Long id){
         taskService.deleteTask(id);
         return "Task with id " + id + " was deleted";
     }
 
+    @PutMapping("/assignparent/{taskid}/{newparentid}")
+    public String assignParentTask(@PathVariable Long taskid, @PathVariable Long newparentid) {
+        taskService.assignParentTask(taskid, newparentid);
+        Task task = taskService.getTaskById(taskid);
+        return newparentid == 0 ? "Parent task is null" : task.getParentTask().getTitle() + ", is the parent of " + task.getTitle();
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -64,6 +65,16 @@ public class UserController {
 
         return "User " + userDTO.getName() + " is the Task Manager of: " + taskDTO.getTitle();
     }
+
+    @PutMapping("/addtoteam/{taskid}/{userid}")
+    public String addtoteam(@PathVariable Long taskid, @PathVariable Long userid){
+        TaskDTO taskDTO = userService.addUsertoTeam(taskid, userid);
+        UserDTO userDTO = userService.getUserById(userid);
+
+        return "User " + userDTO.getName() + " was added to team of the task: " + taskDTO.getTitle();
+    }
+
+
 
 
 }
