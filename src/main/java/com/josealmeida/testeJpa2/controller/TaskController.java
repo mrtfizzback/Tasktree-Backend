@@ -55,6 +55,6 @@ public class TaskController {
     public String assignParentTask(@PathVariable Long taskid, @PathVariable Long newparentid) {
         taskService.assignParentTask(taskid, newparentid);
         Task task = taskService.getTaskById(taskid);
-        return newparentid == 0 ? "Parent task is null" : task.getParentTask().getTitle() + ", is the parent of " + task.getTitle();
+        return newparentid == 0 ? "SPRINGBOOT: Parent of " + task.getTitle() + " is null" : "SPRINGBOOT: "+ task.getParentTask().getTitle() + ", is the parent of " + task.getTitle();
     }
 }
