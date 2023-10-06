@@ -1,14 +1,13 @@
 package com.josealmeida.testeJpa2.service;
 
-import com.josealmeida.testeJpa2.DTO.TaskDTO;
 import com.josealmeida.testeJpa2.model.Task;
 import com.josealmeida.testeJpa2.model.User;
 import com.josealmeida.testeJpa2.repository.TaskRepository;
+import com.josealmeida.testeJpa2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +16,12 @@ import java.util.Optional;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Task> getAllTasks(){
@@ -38,6 +39,7 @@ public class TaskService {
     }
 
     public Task saveTask(Task newTask){
+        
         return taskRepository.save(newTask);
     }
 

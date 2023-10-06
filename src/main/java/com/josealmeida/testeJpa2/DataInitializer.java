@@ -56,10 +56,17 @@ public class DataInitializer implements CommandLineRunner {
         // Create Users
         User user1 = new User();
         user1.setUsername("user1");
-        user1.setName("User One");
+        user1.setName("User 1");
         user1.setEmail("user1@example.com");
         user1.setUserType(UserType.FREE_USER); // Or UserType.PREMIUM
         user1.setPhotoProfile(new byte[0]); // Add profile photo if needed
+
+        User user2 = new User();
+        user2.setUsername("user2");
+        user2.setName("User 2");
+        user2.setEmail("user2@example.com");
+        user2.setUserType(UserType.PREMIUM); // Or UserType.PREMIUM
+        user2.setPhotoProfile(new byte[0]); // Add profile photo if needed
 
         // Create and add managing tasks to user1
         Set<Task> managingTasks1 = new HashSet<>();
@@ -69,6 +76,7 @@ public class DataInitializer implements CommandLineRunner {
 
         user1.setPartOfTeamTasks(new HashSet<>()); // Add participating tasks if needed
         userRepository.save(user1);
+        userRepository.save(user2);
     }
 }
 
