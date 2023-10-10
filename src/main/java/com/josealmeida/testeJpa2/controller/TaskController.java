@@ -36,9 +36,9 @@ public class TaskController {
         return taskService.getTaskById(id);
     }
 
-    @PostMapping("/newtask")
-    public Task newTask(@RequestBody Task newTask){
-        return taskService.saveTask(newTask);
+    @PostMapping("/newtask/{managerid}")
+    public String newTask(@RequestBody Task newTask, @PathVariable Long managerid){
+        return taskService.saveTask(newTask, managerid);
     }
 
     @PutMapping("/{id}")
@@ -56,5 +56,11 @@ public class TaskController {
         taskService.assignParentTask(taskid, newparentid);
         Task task = taskService.getTaskById(taskid);
         return newparentid == 0 ? "SPRINGBOOT: Parent of " + task.getTitle() + " is null" : "SPRINGBOOT: "+ task.getParentTask().getTitle() + ", is the parent of " + task.getTitle();
+    }
+
+    @PutMapping("/assigntaskmanager/{taskid}/{userid}")
+    public String assignTaskManager(@PathVariable Long taskid, @PathVariable Long userid){
+        String response = taskService.assignTaskManager(taskid, userid);
+        return response;
     }
 }

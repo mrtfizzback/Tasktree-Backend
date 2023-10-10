@@ -30,7 +30,7 @@ public class TaskDTO {
         taskDTO.setId(task.getId());
         taskDTO.setTitle(task.getTitle());
         taskDTO.setTaskDescription(task.getTaskDescription());
-        taskDTO.setTaskType(task.getTasktype());
+        taskDTO.setTaskType(task.getTaskType());
         taskDTO.setTaskCreator(task.getTaskCreator());
         taskDTO.setTaskManager(task.getTaskManager());
         taskDTO.setTaskTeam(task.getTaskTeam());
@@ -49,7 +49,7 @@ public class TaskDTO {
         task.setId(this.getId());
         task.setTitle(this.getTitle());
         task.setTaskDescription(this.getTaskDescription());
-        task.setTasktype(this.getTaskType());
+        task.setTaskType(this.getTaskType());
         task.setTaskCreator(this.getTaskCreator());
         task.setTaskManager(this.getTaskManager());
         task.setTaskTeam(this.getTaskTeam());

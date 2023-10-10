@@ -87,7 +87,7 @@ import java.util.Set;
 @Table(name="Tasks")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+//@ToString
 public class Task {
 
     @Id
@@ -107,7 +107,7 @@ public class Task {
     private int taskLevel;
 
     @Enumerated(EnumType.STRING)
-    private TaskType tasktype;
+    private TaskType taskType;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")
@@ -137,4 +137,13 @@ public class Task {
     @JsonManagedReference
 
     private Set<Task> childTasks = new HashSet<>();
+
+    private Task(String title, String taskDescription, TaskType taskType) {
+        this.title = title;
+        this.taskDescription = taskDescription;
+        this.taskType = taskType;
+
+    }
+
+
 }

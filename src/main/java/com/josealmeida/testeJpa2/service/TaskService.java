@@ -38,9 +38,11 @@ public class TaskService {
         return task;
     }
 
-    public Task saveTask(Task newTask){
-        
-        return taskRepository.save(newTask);
+    public String saveTask(Task newTask, Long managerid){
+
+        newTask.setTaskManager(userRepository.findById(managerid).get());
+        taskRepository.save(newTask);
+        return "Task created successfully: " + newTask.toString();
     }
 
     public Task updateTask(Task newTask, Long id) {
@@ -52,7 +54,7 @@ public class TaskService {
         Task updatedTask = new Task();
         oldtask.setTitle(newTask.getTitle());
         oldtask.setTaskDescription(newTask.getTaskDescription());
-        oldtask.setTasktype(newTask.getTasktype());
+        oldtask.setTaskType(newTask.getTaskType());
         oldtask.setTaskCreator(newTask.getTaskCreator());
         oldtask.setTaskManager(newTask.getTaskManager());
         oldtask.setTaskTeam(newTask.getTaskTeam());
@@ -98,8 +100,8 @@ public class TaskService {
 
             selectedTask.setParentTask(parentTask);
 /*            if (parentTask.getChildTasks() == null) {
-                parentTask.setChildTasks(new Set<TasK>());
-            }*/
+               parentTask.setChildTasks(new Set<TasK>());
+           }*/
             parentTask.getChildTasks().add(selectedTask);
         } else {
             if (selectedTask.getParentTask() != null) {
@@ -110,6 +112,16 @@ public class TaskService {
         taskRepository.save(selectedTask);
     }
 
+    public String assignTaskManager(Long taskid, Long userid){
+        Optional<Task> optionalTask = taskRepository.findById(taskid);
+        Task myTask = optionalTask.get();
+        Optional<User> optionalUser = userRepository.findById(userid);
+        User user = optionalUser.get();
+        myTask.setTaskManager(user);
+        taskRepository.save(myTask);
+//        return user.getUsername() + " Is now the manager of : " + myTask.getTitle();
+        return myTask.toString();
+    }
 
 
 }

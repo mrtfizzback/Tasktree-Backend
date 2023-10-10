@@ -51,7 +51,7 @@ public class UserController {
         return "User with id "+ id +" was deleted";
     }
 
-//    @PutMapping("/assignmanager/{taskid}/{userid}")
+    //    @PutMapping("/assignmanager/{taskid}/{userid}")
 //    public String assignManager(@PathVariable Long taskId, @PathVariable Long userId, User newManager){
 //        taskService.getTaskById(taskId).setTaskManager(UserDTO.dtoToUser(userService.getUserById(userId)));
 //
@@ -73,7 +73,6 @@ public class UserController {
 
         return "User " + userDTO.getName() + " was added to team of the task: " + taskDTO.getTitle();
     }
-
 
 
 
