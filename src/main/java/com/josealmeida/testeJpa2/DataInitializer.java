@@ -3,7 +3,7 @@ package com.josealmeida.testeJpa2;
 import com.josealmeida.testeJpa2.model.Task;
 import com.josealmeida.testeJpa2.model.User;
 import com.josealmeida.testeJpa2.model.enums.TaskType;
-import com.josealmeida.testeJpa2.model.enums.UserType;
+import com.josealmeida.testeJpa2.model.enums.UserRole;
 import com.josealmeida.testeJpa2.repository.TaskRepository;
 import com.josealmeida.testeJpa2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +99,10 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        //Clean tables fater restarting
+        taskRepository.deleteAll();
+        userRepository.deleteAll();
         // Create Tasks
         Task task1 = new Task();
         task1.setTitle("Task 1");
@@ -128,29 +132,38 @@ public class DataInitializer implements CommandLineRunner {
         taskRepository.save(task4);
 
         // Create Users
-        User user1 = new User();
-        user1.setUsername("user1");
-        user1.setName("User 1");
-        user1.setEmail("user1@example.com");
-        user1.setUserType(UserType.FREE_USER); // Or UserType.PREMIUM
-        user1.setPhotoProfile(new byte[0]); // Add profile photo if needed
+//        User user1 = new User();
+//        user1.setUsername("user1");
+//        user1.setName("User 1");
+//        user1.setEmail("user1@example.com");
+//        user1.setUserRole(UserRole.FREE_USER); // Or UserType.PREMIUM
+//        user1.setPhotoProfile(new byte[0]); // Add profile photo if needed
 
-        User user2 = new User();
-        user2.setUsername("user2");
-        user2.setName("User 2");
-        user2.setEmail("user2@example.com");
-        user2.setUserType(UserType.PREMIUM); // Or UserType.PREMIUM
-        user2.setPhotoProfile(new byte[0]); // Add profile photo if needed
+//        User user2 = new User();
+//        user2.setUsername("user2");
+//        user2.setName("User 2");
+//        user2.setEmail("user2@example.com");
+//        user2.setUserRole(UserRole.PREMIUM); // Or UserType.PREMIUM
+//        user2.setPhotoProfile(new byte[0]); // Add profile photo if needed
+
+//        User userAdmin = new User();
+//        userAdmin.setUsername("userAdmin");
+//        userAdmin.setName("Admin");
+//        userAdmin.setEmail("user2@example.com");
+//        userAdmin.setUserRole(UserRole.ADMIN); // Or UserType.PREMIUM
+//        userAdmin.setPhotoProfile(new byte[0]); // Add profile photo if needed
 
         // Create and add managing tasks to user1
-        Set<Task> managingTasks1 = new HashSet<>();
-        managingTasks1.add(task1);
-        managingTasks1.add(task2);
-        user1.setManagingTasks(managingTasks1);
+//        Set<Task> managingTasks1 = new HashSet<>();
+//        managingTasks1.add(task1);
+//        managingTasks1.add(task2);
+//        user1.setManagingTasks(managingTasks1);
+//
+//        user1.setPartOfTeamTasks(new HashSet<>()); // Add participating tasks if needed
+//        userRepository.save(user1);
+//        userRepository.save(user2);
+//        userRepository.save(userAdmin);
 
-        user1.setPartOfTeamTasks(new HashSet<>()); // Add participating tasks if needed
-        userRepository.save(user1);
-        userRepository.save(user2);
 
 
     }

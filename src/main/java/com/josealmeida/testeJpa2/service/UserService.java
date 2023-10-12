@@ -54,9 +54,9 @@ public class UserService {
         User updatedTask = new User();
         updateUser.setUsername(newUser.getUsername());
         updateUser.setEmail(newUser.getEmail());
-        updateUser.setUserType(newUser.getUserType());
+        updateUser.setRole(newUser.getRole());
         updateUser.setPassword(newUser.getPassword());
-        updateUser.setPhotoProfile(newUser.getPhotoProfile());
+//        updateUser.setPhotoProfile(newUser.getPhotoProfile());
         updateUser.setManagingTasks(newUser.getManagingTasks());
         updateUser.setPartOfTeamTasks(newUser.getPartOfTeamTasks());
         return updateUser;

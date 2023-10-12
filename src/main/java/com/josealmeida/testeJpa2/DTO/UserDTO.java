@@ -2,7 +2,7 @@ package com.josealmeida.testeJpa2.DTO;
 
 import com.josealmeida.testeJpa2.model.Task;
 import com.josealmeida.testeJpa2.model.User;
-import com.josealmeida.testeJpa2.model.enums.UserType;
+import com.josealmeida.testeJpa2.model.enums.UserRole;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +21,7 @@ public class UserDTO {
     private String username;
     private String name;
     private String email;
-    private UserType userType;
+    private UserRole UserRole;
     private byte[] photoProfile;
     private Set<Long> managingTaskIds = new HashSet<>();
     private Set<Long> participatingTaskIds = new HashSet<>();
@@ -36,8 +36,8 @@ public class UserDTO {
         userDTO.setUsername(user.getUsername());
         userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
-        userDTO.setUserType(user.getUserType());
-        userDTO.setPhotoProfile(user.getPhotoProfile());
+        userDTO.setUserRole(user.getRole());
+//        userDTO.setPhotoProfile(user.getPhotoProfile());
 
         // Convert sets of Task objects to sets of IDs
         if (user.getManagingTasks() != null) {
@@ -65,8 +65,8 @@ public class UserDTO {
         user.setUsername(userDTO.getUsername());
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
-        user.setUserType(userDTO.getUserType());
-        user.setPhotoProfile(userDTO.getPhotoProfile());
+        user.setRole(userDTO.getUserRole());
+//        user.setPhotoProfile(userDTO.getPhotoProfile());
 
         // In this method, I'm assuming Task objects should be fetched or managed elsewhere
         // So I'm not setting the ManagingTasks and ParticipatingTasks here
