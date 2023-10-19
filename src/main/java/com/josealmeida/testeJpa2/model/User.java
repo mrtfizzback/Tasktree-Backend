@@ -50,7 +50,7 @@
 package com.josealmeida.testeJpa2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.josealmeida.testeJpa2.model.enums.UserType;
+import com.josealmeida.testeJpa2.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -69,16 +69,32 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String name;
+    private String userName;
     private String email;
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private UserType userType;
+    @Getter
+    private String roles;
 
-    @Lob
-    private byte[] photoProfile;
+//    @Getter
+//    private String role;
+
+
+
+//    public User(String userName, String password, UserRole role){
+//        this.userName = userName;
+//        this.password = password;
+//        this.role = role;
+//    }
+
+    public User(String userName, String password, String roles){
+        this.userName = userName;
+        this.password = password;
+        this.roles = roles;
+    }
+
+
+
 
     @JsonIgnoreProperties({"taskManager"})
     @OneToMany(mappedBy = "taskManager", fetch = FetchType.LAZY)

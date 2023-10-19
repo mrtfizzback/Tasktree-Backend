@@ -45,22 +45,21 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User updateUser(User newUser, Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        User updateUser = null;
-        if (userOptional.isPresent()) {
-            updateUser = userOptional.get();
-        }
-        User updatedTask = new User();
-        updateUser.setUsername(newUser.getUsername());
-        updateUser.setEmail(newUser.getEmail());
-        updateUser.setUserType(newUser.getUserType());
-        updateUser.setPassword(newUser.getPassword());
-        updateUser.setPhotoProfile(newUser.getPhotoProfile());
-        updateUser.setManagingTasks(newUser.getManagingTasks());
-        updateUser.setPartOfTeamTasks(newUser.getPartOfTeamTasks());
-        return updateUser;
-    }
+//    public User updateUser(User newUser, Long id) {
+//        Optional<User> userOptional = userRepository.findById(id);
+//        User updateUser = null;
+//        if (userOptional.isPresent()) {
+//            updateUser = userOptional.get();
+//        }
+//        User updatedTask = new User();
+//        updateUser.setUsername(newUser.getUsername());
+//        updateUser.setEmail(newUser.getEmail());
+//        updateUser.setPassword(newUser.getPassword());
+//        updateUser.setPhotoProfile(newUser.getPhotoProfile());
+//        updateUser.setManagingTasks(newUser.getManagingTasks());
+//        updateUser.setPartOfTeamTasks(newUser.getPartOfTeamTasks());
+//        return updateUser;
+//    }
 
     @Transactional
     public void deleteUser(Long id) {

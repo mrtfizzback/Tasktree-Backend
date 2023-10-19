@@ -1,7 +1,7 @@
 package com.josealmeida.testeJpa2.DTO;
 import com.josealmeida.testeJpa2.model.Task;
 import com.josealmeida.testeJpa2.model.User;
-import com.josealmeida.testeJpa2.model.enums.TaskType;
+import com.josealmeida.testeJpa2.enums.TaskType;
 import lombok.Data;
 
 import java.time.LocalDateTime;

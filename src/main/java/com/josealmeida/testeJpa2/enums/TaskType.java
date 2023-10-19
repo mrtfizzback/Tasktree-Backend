@@ -1,4 +1,4 @@
-package com.josealmeida.testeJpa2.model.enums;
+package com.josealmeida.testeJpa2.enums;
 
 public enum TaskType {
     FOLDER,

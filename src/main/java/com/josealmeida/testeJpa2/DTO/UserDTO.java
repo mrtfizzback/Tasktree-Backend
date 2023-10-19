@@ -2,11 +2,7 @@ package com.josealmeida.testeJpa2.DTO;
 
 import com.josealmeida.testeJpa2.model.Task;
 import com.josealmeida.testeJpa2.model.User;
-import com.josealmeida.testeJpa2.model.enums.UserType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import com.josealmeida.testeJpa2.enums.UserType;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -33,11 +29,8 @@ public class UserDTO {
 
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setName(user.getName());
+        userDTO.setUsername(user.getUserName());
         userDTO.setEmail(user.getEmail());
-        userDTO.setUserType(user.getUserType());
-        userDTO.setPhotoProfile(user.getPhotoProfile());
 
         // Convert sets of Task objects to sets of IDs
         if (user.getManagingTasks() != null) {
@@ -62,11 +55,8 @@ public class UserDTO {
 
         User user = new User();
         user.setId(userDTO.getId());
-        user.setUsername(userDTO.getUsername());
-        user.setName(userDTO.getName());
+        user.setUserName(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
-        user.setUserType(userDTO.getUserType());
-        user.setPhotoProfile(userDTO.getPhotoProfile());
 
         // In this method, I'm assuming Task objects should be fetched or managed elsewhere
         // So I'm not setting the ManagingTasks and ParticipatingTasks here

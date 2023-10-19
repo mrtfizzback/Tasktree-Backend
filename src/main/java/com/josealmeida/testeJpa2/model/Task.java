@@ -74,7 +74,7 @@ package com.josealmeida.testeJpa2.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.josealmeida.testeJpa2.model.enums.TaskType;
+import com.josealmeida.testeJpa2.enums.TaskType;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

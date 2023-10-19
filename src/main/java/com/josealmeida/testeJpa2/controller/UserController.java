@@ -39,11 +39,11 @@ public class UserController {
         return UserDTO.userToDTO(newUser);
     }
 
-    @PutMapping("/{id}")
-    public UserDTO updateUser(@RequestBody User updatedUser, @PathVariable Long id){
-        userService.updateUser(updatedUser, id);
-        return UserDTO.userToDTO(updatedUser);
-    }
+//    @PutMapping("/{id}")
+//    public UserDTO updateUser(@RequestBody User updatedUser, @PathVariable Long id){
+//        userService.updateUser(updatedUser, id);
+//        return UserDTO.userToDTO(updatedUser);
+//    }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id){
