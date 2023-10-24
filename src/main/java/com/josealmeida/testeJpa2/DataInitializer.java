@@ -90,6 +90,9 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        taskRepository.deleteAll();
+        userRepository.deleteAll();
         // Create Tasks
         Task task1 = new Task();
         task1.setTitle("Task 1");

@@ -1,6 +1,7 @@
 package com.josealmeida.testeJpa2.controller;
 
 
+import com.josealmeida.testeJpa2.DTO.UserAuthResponseDTO;
 import com.josealmeida.testeJpa2.model.AuthRequest;
 import com.josealmeida.testeJpa2.model.User;
 import com.josealmeida.testeJpa2.service.JwtService;
@@ -13,12 +14,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/auth")
 public class UserAuthController {
 
     @Autowired
-    private UserInfoService service;
+    private UserInfoService userInfoService;
 
     @Autowired
     private JwtService jwtService;
@@ -33,7 +37,7 @@ public class UserAuthController {
 
     @PostMapping("/addNewUser")
     public String addNewUser(@RequestBody User userInfo) {
-        return service.addUser(userInfo);
+        return userInfoService.addUser(userInfo);
     }
 
     @GetMapping("/user/userProfile")
@@ -49,13 +53,23 @@ public class UserAuthController {
     }
 
     @PostMapping("/generateToken")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    public UserAuthResponseDTO authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
         System.out.println("This is the authentication: "+ authentication);
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUserName());
+            User user = userInfoService.getUserByUserName(authRequest.getUserName());
+            String token = jwtService.generateToken(authRequest.getUserName());
+            UserAuthResponseDTO userAuthResponseDTO = new UserAuthResponseDTO(user.getUserName(),user.getEmail(), user.getRoles(), token);
+            return userAuthResponseDTO;
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
     }
+
+    @GetMapping("/allusers")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') OR hasAuthority('ROLE_USER')")
+    public List<User> getAllUsers (){
+        return userInfoService.getAllUsers();
+    }
+
 }
