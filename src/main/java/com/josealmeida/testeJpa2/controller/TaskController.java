@@ -71,7 +71,7 @@ public class TaskController {
         return taskService.updateTask(updatedTask, id);
     }
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String deleteTask(@PathVariable Long id){
         taskService.deleteTask(id);
         return "Task with id " + id + " was deleted";
