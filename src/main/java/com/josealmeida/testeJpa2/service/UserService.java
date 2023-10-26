@@ -45,41 +45,24 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-//    public User updateUser(User newUser, Long id) {
-//        Optional<User> userOptional = userRepository.findById(id);
-//        User updateUser = null;
-//        if (userOptional.isPresent()) {
-//            updateUser = userOptional.get();
-//        }
-//        User updatedTask = new User();
-//        updateUser.setUsername(newUser.getUsername());
-//        updateUser.setEmail(newUser.getEmail());
-//        updateUser.setPassword(newUser.getPassword());
-//        updateUser.setPhotoProfile(newUser.getPhotoProfile());
-//        updateUser.setManagingTasks(newUser.getManagingTasks());
-//        updateUser.setPartOfTeamTasks(newUser.getPartOfTeamTasks());
-//        return updateUser;
-//    }
 
     @Transactional
     public void deleteUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
 
         if (!userOptional.isPresent()) {
-            // Optionally, handle this case (e.g., throw an exception, log a warning, etc.)
+
             return;
         }
 
         User userToDelete = userOptional.get();
 
-        // For each task that the user is a manager of, nullify the taskManager field
+
         for (Task managedTask : userToDelete.getManagingTasks()) {
             managedTask.setTaskManager(null);
-            // Or assign a new manager if necessary
-            // managedTask.setTaskManager(newManager);
         }
 
-        // For each task the user is part of, remove the user from the task's team
+        // CRemove the user from the task's team
         for (Task teamTask : userToDelete.getPartOfTeamTasks()) {
             teamTask.getTaskTeam().remove(userToDelete);
         }

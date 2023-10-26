@@ -76,17 +76,6 @@ public class User {
     @Getter
     private String roles;
 
-//    @Getter
-//    private String role;
-
-
-
-//    public User(String userName, String password, UserRole role){
-//        this.userName = userName;
-//        this.password = password;
-//        this.role = role;
-//    }
-
     public User(String userName, String password, String roles){
         this.userName = userName;
         this.password = password;

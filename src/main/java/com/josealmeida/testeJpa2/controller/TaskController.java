@@ -31,9 +31,6 @@ public class TaskController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
-//    @Autowired
-//    private final UserService userService;
     @Autowired
     private UserInfoService userInfoService;
 
@@ -47,9 +44,6 @@ public class TaskController {
     @GetMapping("/tasks")
 
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN') OR hasAuthority('ROLE_USER')")
-//    public String teste(){
-//        return "testeee";
-//    }
     public List<Task> getAllTasks(){
         return taskService.getAllTasks();
     }
@@ -83,21 +77,4 @@ public class TaskController {
         Task task = taskService.getTaskById(taskid);
         return newparentid == 0 ? "SPRINGBOOT: Parent of " + task.getTitle() + " is null" : "SPRINGBOOT: "+ task.getParentTask().getTitle() + ", is the parent of " + task.getTitle();
     }
-
-//    @PutMapping("/assigntaskmanager/{taskid}/{userid}")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//    public String assignTaskManager(@PathVariable Long taskid, @PathVariable Long userid){
-//        String response = taskService.assignTaskManager(taskid, userid);
-//        return response;
-//    }
-
-//    @PostMapping("/generateToken")
-//    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
-//        if (authentication.isAuthenticated()) {
-//            return jwtService.generateToken(authRequest.getUserName());
-//        } else {
-//            throw new UsernameNotFoundException("invalid user request !");
-//        }
-//    }
 }

@@ -19,22 +19,39 @@ public class JwtService {
 
     public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
     public String generateToken(String userName) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userName);
+        try {
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("iss", "tasktree springboot"); // Issuer claim
+            claims.put("username", userName); // A private claim
+            return createToken(claims, userName);
+        } catch(Exception e) {
+            System.err.println("Error generating token: " + e.getMessage());
+            return null;
+        }
     }
 
     private String createToken(Map<String, Object> claims, String userName) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(userName)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
-                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+        try {
+            return Jwts.builder()
+                    .setClaims(claims)
+                    .setSubject(userName)
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+                    .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+        } catch(Exception e) {
+            System.err.println("Error creating token: " + e.getMessage());
+            return null;
+        }
     }
 
     private Key getSignKey() {
-        byte[] keyBytes= Decoders.BASE64.decode(SECRET);
-        return Keys.hmacShaKeyFor(keyBytes);
+        try {
+            byte[] keyBytes= Decoders.BASE64.decode(SECRET);
+            return Keys.hmacShaKeyFor(keyBytes);
+        } catch(Exception e) {
+            System.err.println("Error obtaining signing key: " + e.getMessage());
+            return null;
+        }
     }
 
     public String extractUsername(String token) {

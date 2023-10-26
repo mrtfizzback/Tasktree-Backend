@@ -30,34 +30,29 @@ public class TaskService {
     }
 
     public Task getTaskById(Long id) {
-        Optional<Task> taskOptional = taskRepository.findById(id);
-
-        Task task = null;
-        if (taskOptional.isPresent()) {
-            task = taskOptional.get();
-        }
-        return task;
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task with ID " + id + " not found"));
     }
 
+
     public String saveTask(NewTaskDTO newTask){
-          User manager = userRepository.findByUserName(newTask.taskManager()).get();
-          Task task = new Task();
-          task.setTitle(newTask.title());
-          task.setTaskDescription(newTask.taskDescription());
-          task.setTaskType(newTask.taskType());
-          task.setTaskManager(manager);
-//        newTask.setTaskManager(userRepository.findById(managerid).get());
+        User manager = userRepository.findByUserName(newTask.taskManager())
+                .orElseThrow(() -> new RuntimeException("User not found with name: " + newTask.taskManager()));
+
+        Task task = new Task();
+        task.setTitle(newTask.title());
+        task.setTaskDescription(newTask.taskDescription());
+        task.setTaskType(newTask.taskType());
+        task.setTaskManager(manager);
+
         taskRepository.save(task);
         return "TASK: Task created successfully: " + task.toString();
     }
 
     public Task updateTask(Task newTask, Long id) {
-        Optional<Task> taskOptional = taskRepository.findById(id);
-        Task oldtask = null;
-        if (taskOptional.isPresent()) {
-            oldtask = taskOptional.get();
-        }
-        Task updatedTask = new Task();
+        Task oldtask = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task with ID " + id + " not found"));
+
         oldtask.setTitle(newTask.getTitle());
         oldtask.setTaskDescription(newTask.getTaskDescription());
         oldtask.setTaskType(newTask.getTaskType());
@@ -69,23 +64,21 @@ public class TaskService {
         oldtask.setFinanced(newTask.isFinanced());
         oldtask.setTeamComplete(newTask.isTeamComplete());
         oldtask.setGovernmentApproved(newTask.isGovernmentApproved());
+
         return oldtask;
     }
 
     public void deleteTask(Long id){
-        Optional<Task> taskOptional = taskRepository.findById(id);
-        Task oldtask = null;
-        if (taskOptional.isPresent()) {
-            oldtask = taskOptional.get();
-        }
+        Task oldTask = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found with ID: " + id));
 
-        oldtask.setTaskCreator(null);
-        oldtask.setTaskManager(null);
-        oldtask.getTaskTeam().clear();
+        oldTask.setTaskCreator(null);
+        oldTask.setTaskManager(null);
+        oldTask.getTaskTeam().clear();
 
-        User taskManager = oldtask.getTaskManager();
+        User taskManager = oldTask.getTaskManager();
         if (taskManager != null) {
-            taskManager.getManagingTasks().remove(oldtask);
+            taskManager.getManagingTasks().remove(oldTask);
         }
 
         taskRepository.deleteById(id);
@@ -119,13 +112,15 @@ public class TaskService {
     }
 
     public String assignTaskManager(Long taskid, Long userid){
-        Optional<Task> optionalTask = taskRepository.findById(taskid);
-        Task myTask = optionalTask.get();
-        Optional<User> optionalUser = userRepository.findById(userid);
-        User user = optionalUser.get();
+        Task myTask = taskRepository.findById(taskid)
+                .orElseThrow(() -> new RuntimeException("Task with ID " + taskid + " not found"));
+
+        User user = userRepository.findById(userid)
+                .orElseThrow(() -> new RuntimeException("User with ID " + userid + " not found"));
+
         myTask.setTaskManager(user);
         taskRepository.save(myTask);
-//        return user.getUsername() + " Is now the manager of : " + myTask.getTitle();
+
         return myTask.toString();
     }
 
