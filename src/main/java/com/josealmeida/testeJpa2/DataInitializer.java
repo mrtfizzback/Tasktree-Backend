@@ -1,6 +1,8 @@
 package com.josealmeida.testeJpa2;
 
+import com.josealmeida.testeJpa2.controller.UserAuthController;
 import com.josealmeida.testeJpa2.model.Task;
+import com.josealmeida.testeJpa2.model.User;
 import com.josealmeida.testeJpa2.repository.TaskRepository;
 import com.josealmeida.testeJpa2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserAuthController userAuthController;
 //    @Override
 //    public void run(String... args) throws Exception {
 //
@@ -120,14 +124,25 @@ public class DataInitializer implements CommandLineRunner {
         task4.setTaskDescription("Task 4 Desccription");
         // Set other task properties...
         taskRepository.save(task4);
-//
-//        // Create Users
-//        User user1 = new User();
-//        user1.setUsername("user1");
-//        user1.setName("User 1");
-//        user1.setEmail("user1@example.com");
-//        user1.setUserType(UserType.FREE_USER); // Or UserType.PREMIUM
-//        user1.setPhotoProfile(new byte[0]); // Add profile photo if needed
+
+        // Create Users
+        User user1 = new User();
+        user1.setUserName("user1");
+        user1.setPassword("12345");
+        user1.setEmail("user1@example.com");
+        user1.setRoles("ROLE_USER");
+
+        User user2 = new User();
+        user2.setUserName("admin");
+        user2.setPassword("12345");
+        user2.setEmail("user1@example.com");
+        user2.setRoles("ROLE_ADMIN");
+
+        userAuthController.addNewUser(user2);
+        userAuthController.addNewUser(user1);
+
+
+
 //
 //        User user2 = new User();
 //        user2.setUsername("user2");

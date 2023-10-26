@@ -138,11 +138,11 @@ public class Task {
 
     private Set<Task> childTasks = new HashSet<>();
 
-    private Task(String title, String taskDescription, TaskType taskType) {
+    private Task(String title, String taskDescription, TaskType taskType,User taskManager) {
         this.title = title;
         this.taskDescription = taskDescription;
         this.taskType = taskType;
-
+        this.taskManager = taskManager;
     }
 
 

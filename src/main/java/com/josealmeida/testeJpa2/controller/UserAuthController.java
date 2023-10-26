@@ -67,9 +67,12 @@ public class UserAuthController {
     }
 
     @GetMapping("/allusers")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') OR hasAuthority('ROLE_USER')")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN') OR hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<User> getAllUsers (){
         return userInfoService.getAllUsers();
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.josealmeida.testeJpa2.service;
 
+import com.josealmeida.testeJpa2.DTO.NewTaskDTO;
 import com.josealmeida.testeJpa2.model.Task;
 import com.josealmeida.testeJpa2.model.User;
 import com.josealmeida.testeJpa2.repository.TaskRepository;
@@ -38,11 +39,16 @@ public class TaskService {
         return task;
     }
 
-    public String saveTask(Task newTask, Long managerid){
-
-        newTask.setTaskManager(userRepository.findById(managerid).get());
-        taskRepository.save(newTask);
-        return "Task created successfully: " + newTask.toString();
+    public String saveTask(NewTaskDTO newTask){
+          User manager = userRepository.findByUserName(newTask.taskManager()).get();
+          Task task = new Task();
+          task.setTitle(newTask.title());
+          task.setTaskDescription(newTask.taskDescription());
+          task.setTaskType(newTask.taskType());
+          task.setTaskManager(manager);
+//        newTask.setTaskManager(userRepository.findById(managerid).get());
+        taskRepository.save(task);
+        return "TASK: Task created successfully: " + task.toString();
     }
 
     public Task updateTask(Task newTask, Long id) {
