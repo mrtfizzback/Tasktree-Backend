@@ -50,23 +50,21 @@ public class TaskService {
     }
 
     public Task updateTask(Task newTask, Long id) {
-        Task oldtask = taskRepository.findById(id)
+
+        Task oldTask = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task with ID " + id + " not found"));
 
-        oldtask.setTitle(newTask.getTitle());
-        oldtask.setTaskDescription(newTask.getTaskDescription());
-        oldtask.setTaskType(newTask.getTaskType());
-        oldtask.setTaskCreator(newTask.getTaskCreator());
-        oldtask.setTaskManager(newTask.getTaskManager());
-        oldtask.setTaskTeam(newTask.getTaskTeam());
-        oldtask.setParentTask(newTask.getParentTask());
-        oldtask.setCompleted(newTask.isCompleted());
-        oldtask.setFinanced(newTask.isFinanced());
-        oldtask.setTeamComplete(newTask.isTeamComplete());
-        oldtask.setGovernmentApproved(newTask.isGovernmentApproved());
+        oldTask.setTitle(newTask.getTitle());
+        oldTask.setTaskDescription(newTask.getTaskDescription());
+        oldTask.setTaskType(newTask.getTaskType());
+        oldTask.setTaskManager(newTask.getTaskManager());
+        oldTask.setParentTask(newTask.getParentTask());
 
-        return oldtask;
+        return taskRepository.save(oldTask);
     }
+
+
+
 
     public void deleteTask(Long id){
         Task oldTask = taskRepository.findById(id)
